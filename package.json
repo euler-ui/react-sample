@@ -16,7 +16,7 @@
   },
   "engines": {
     "node": ">=v6.10.0",
-    "npm": ">=3.10.10"
+    "npm": "3.10.8"
   },
   "dependencies": {
     "immutable": "^3.7.6",
