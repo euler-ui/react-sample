@@ -2,22 +2,23 @@
 
 
 JavaScript library boilerplate, a web project template using:  
-> JavaScript Library - [React](https://facebook.github.io/react/);  
-> UI Library - [React Bootstrap](https://react-bootstrap.github.io/);  
+> JavaScript Library - [React](https://facebook.github.io/react/);   
+> Application Architecture - [Redux](http://redux.js.org/);  
+> Declarative routing for React - [React Router](https://github.com/ReactTraining/react-router);  
+> React Components that Implement Google's Material Design.  - [Material UI](https://github.com/callemall/material-ui);  
+> Mock Server based on Express - [Mock Server](https://shinxi.github.io/react/#/6/1);  
 > Future ECMASCript Standards - [ES6+](http://babeljs.io/docs/learn-es2015/);  
 > Javascript Compiler - [Babel](http://babeljs.io/);  
-> Application Architecture - [Redux](http://redux.js.org/);  
 > Module Bundler - [webpack](http://webpack.github.io/docs/tutorials/getting-started/);  
-> Javascript Test Runner - [Karma](https://karma-runner.github.io/0.13/index.html);  
-> Test Framework - [Mocha](http://mochajs.org/);  
-> Tests Assertion - [Chai](http://chaijs.com/);  
-> Test spies/stubs/mocks - [Sinon](http://sinonjs.org/).  
 
 ### Features
 
 ### Getting Started
 
   * Follow the [getting started guide](./getting-started.md) to download and run the project
+
+### Build & Deploy
+  * Follow [Build Doc](./build.md) to build and deploy your project.
 
 ### Directory Layout
 
@@ -45,7 +46,6 @@ JavaScript library boilerplate, a web project template using:
 
   * [Getting Started with React.js](http://facebook.github.io/react/)
   * [Redux Intro](http://redux.js.org/)
-  * [Getting Started with React Bootstarp](https://react-bootstrap.github.io/getting-started.html)
   * [Getting Started with Webpack](https://webpack.github.io/docs/tutorials/getting-started/)
   * [Learn ES6](https://babeljs.io/docs/learn-es6/)
   * [ES6 Features](https://github.com/lukehoban/es6features#readme)
