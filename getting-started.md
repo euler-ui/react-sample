@@ -10,11 +10,11 @@
 
 #### 1. Get the latest version
 
-You can start by cloning the latest version of common-fe-template on your
+You can start by cloning the latest version of react-material-ui-boilerplate on your
 local machine by running:
 
 ```shell
-$ git clone -b material-ui --single-branch https://github.com/euler-ui/boilerplate.git FooApp
+$ git clone -b master --single-branch https://github.com/euler-ui/boilerplate.git FooApp
 $ cd FooApp
 ```
 

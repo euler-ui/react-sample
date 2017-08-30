@@ -53,5 +53,16 @@
   },
   "optionalDependencies": {
     "fsevents": "*"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint"
+    ],
+    "public/**/*.css": [
+      "stylelint"
+    ],
+    "src/**/*.css": [
+      "stylelint"
+    ]
   }
 }
