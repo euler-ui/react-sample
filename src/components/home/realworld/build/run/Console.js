@@ -1,19 +1,20 @@
 import React from 'react'
 
-var Console = React.createClass({
+class Console extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     console.log("Console did update", this.props.instanceId, this.props.logs.toArray());
     if (this.props.instanceId) {
       this.timer = setTimeout(this.props.queryBuildLogs.bind(this, this.props.instanceId), 3000);
     }
-  },
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.instanceId === nextProps.instanceId && this.props.logs === nextProps.logs) {
       return false;
     }
     return true;
-  },
+  }
+
   render() {
     var logs = this.props.logs.toArray().reverse().map((log, id) => {
       log = {
@@ -27,7 +28,7 @@ var Console = React.createClass({
         { logs }
       </div>)
   }
-})
+}
 
 
 export default Console

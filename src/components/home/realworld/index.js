@@ -1,41 +1,45 @@
 import React from 'react';
-import BuildList from './buildList'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import BuildList from './BuildList';
+import AddBuildPanel from './build/add';
+import RunBuildPanel from './build/run';
 
-import * as actions from '../../../actions/build'
+import './realworld.css';
 
-import './realworld.css'
-
-var RealWorld = React.createClass({
-  render() {
-    var props = this.props;
-    var children = props.children && React.cloneElement(props.children, {
-      build: props.build,
-      actions: props.actions
-    })
-    return (
-      <section>
-        { children || <BuildList actions={ props.actions } builds={ props.builds } router={ props.router } /> }
-      </section>
-      );
-  }
-});
-
-const mapStateToProps = (state) => {
-  return {
-    builds: state.builds,
-    build: state.build
-  }
+function RealWorld({ match, actions, builds, build, history }) {
+  return (
+    <section>
+      <Switch>
+        <Route
+          exact
+          path={match.url}
+          render={() => {
+            return <BuildList actions={actions} builds={builds} history={history} />;
+          }}
+        />
+        <Route
+          path={`${match.url}/build/add`}
+          render={() => {
+            return <AddBuildPanel actions={actions} build={build} history={history} />;
+          }}
+        />
+        <Route
+          path={`${match.url}/build/:buildId/run`}
+          render={() => {
+            return <RunBuildPanel actions={actions} build={build} history={history} />;
+          }}
+        />
+      </Switch>
+    </section>
+  );
 }
+RealWorld.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.any).isRequired,
+  build: PropTypes.objectOf(PropTypes.any).isRequired,
+  builds: PropTypes.arrayOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  }
-}
-
-module.exports = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RealWorld)
+export default RealWorld;

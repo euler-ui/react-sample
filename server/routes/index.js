@@ -1,19 +1,19 @@
-var build = require("./build")
-var portal = require("./portal");
-var express = require("express");
+const build = require('./build');
+const portal = require('./portal');
+const express = require('express');
 
 const combineRoutes = (routes) => {
-  var router = express.Router();
+  const router = express.Router();
   Object.keys(routes).forEach((key) => {
     routes[key](router);
-  })
+  });
   return router;
-}
+};
 const router = combineRoutes({
   build,
-  portal
-})
+  portal,
+});
 
-module.exports = router
+module.exports = router;
 
-//export default router
+// export default router

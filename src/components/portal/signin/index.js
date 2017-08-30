@@ -3,95 +3,133 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
-import 'whatwg-fetch';
+import PropTypes from 'prop-types';
 import './signin.css';
 
-var SigninProgress = React.createClass({
-  render() {
-    return (
-      <LinearProgress mode="indeterminate" className="portal-signin-progress" style={ { display: this.props.logining ? "block" : "none" } } />
-      );
-  }
-})
-var SignInForm = React.createClass({
-  getValue() {
-    return {
-      userName: this.refs.userName.getValue(),
-      userPassword: this.refs.userPassword.getValue()
+const SigninProgress = ({ logining }) => {
+  return (
+    <LinearProgress
+      mode="indeterminate"
+      className="portal-signin-progress"
+      style={{ display: logining ? 'block' : 'none' }}
+    />
+  );
+};
+SigninProgress.propTypes = {
+  logining: PropTypes.bool.isRequired,
+};
+const SignInForm = ({ logining, openError, login, handleInputChange }) => {
+  const handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      login();
     }
-  },
-  render() {
-    var logining = this.props.logining;
-    return (
-      <div className="portal-signin-form">
-        <div className="portal-logo">
-          <span className="portal-logo-img" />
-        </div>
-        <div>
-          <TextField ref="userName" hintText="Input guest as a guest" errorText={ this.props.openError ? "Username or password is wrong" : "" } fullWidth={ true } floatingLabelText="Pls input user name..."
-          />
-          <TextField ref="userPassword" type="password" hintText="Input guest as a guest" errorText={ this.props.openError ? "Username or password is wrong" : "" } fullWidth={ true } floatingLabelText="Pls input password..."
-          />
-        </div>
-        <div className="portal-signin-bts">
-          <RaisedButton label="Login" primary={ true } onClick={ this.props.login } style={ { margin: 12 } } disabled={ logining ? true : false } />
-        </div>
+  };
+  return (
+    <div className="portal-signin-form">
+      <div className="portal-logo">
+        <span className="portal-logo-img" />
       </div>
-      );
-  }
-})
-var SignIn = React.createClass({
-  getInitialState() {
-    return {
-      logining: false,
-      openError: false
-    }
-  },
-  handleLoginResult(result) {
-    if (result && result.status === "SUCCESS") {
-      this.props.router.push("/home");
+      <div>
+        <TextField
+          name="userName"
+          hintText="Input guest as a guest"
+          errorText={openError ? 'Username or password is wrong' : ''}
+          fullWidth
+          floatingLabelText="Pls input user name..."
+          onChange={handleInputChange}
+        />
+        <TextField
+          name="userPassword"
+          type="password"
+          hintText="Input guest as a guest"
+          errorText={openError ? 'Username or password is wrong' : ''}
+          fullWidth
+          floatingLabelText="Pls input password..."
+          onChange={handleInputChange}
+          onKeyUp={handleKeyPress}
+        />
+      </div>
+      <div className="portal-signin-bts">
+        <RaisedButton
+          label="Login"
+          primary
+          onClick={login}
+          style={{ margin: 12 }}
+          disabled={!!logining}
+        />
+      </div>
+    </div>
+  );
+};
+SignInForm.propTypes = {
+  logining: PropTypes.bool.isRequired,
+  openError: PropTypes.bool.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+};
+class SignIn extends React.Component {
+  static propTypes = {
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+  };
+  state = {
+    logining: false,
+    openError: false,
+  };
+  handleLoginResult = result => {
+    if (result && result.status === 'SUCCESS') {
+      this.props.history.push('/home');
     } else {
       this.setState({
         logining: false,
-        openError: true
-      })
+        openError: true,
+      });
     }
-  },
-  // login() {
-  //   this.setState({
-  //     logining: true,
-  //     openError: false
-  //   })
-  //   setTimeout(() => {
-  //     this.handleLoginResult({
-  //       status: "SUCCESS"
-  //     });
-  //   }, 3000)
-  // },
-  login() {
+  };
+
+  handleInputChange = event => {
+    const target = event.target;
+    const name = target.name;
+
+    this.setState({
+      fields: { ...this.state.fields, [name]: target.value },
+    });
+  };
+  login = () => {
     this.setState({
       logining: true,
-      openError: false
-    })
-    fetch("/api/portal/users/login", {
-      method: "POST",
+      openError: false,
+    });
+    fetch('/api/portal/users/login', {
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(this.refs.signin.getValue())
-    }).then((response) => {
-      return response.json();
-    }).then(this.handleLoginResult).catch(this.handleLoginResult);
-  },
-  render: function() {
+      body: JSON.stringify(this.state.fields),
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(this.handleLoginResult)
+      .catch(this.handleLoginResult);
+  };
+  render() {
     return (
       <div>
-        <SigninProgress logining={ this.state.logining } />
-        <SignInForm ref="signin" openError={ this.state.openError } logining={ this.state.logining } login={ this.login } />
-        <Snackbar open={ this.state.openError } message="Your username or password is wrong!" autoHideDuration={ 2000 } />
+        <SigninProgress logining={this.state.logining} />
+        <SignInForm
+          openError={this.state.openError}
+          logining={this.state.logining}
+          login={this.login}
+          handleInputChange={this.handleInputChange}
+        />
+        <Snackbar
+          open={this.state.openError}
+          message="Your username or password is wrong!"
+          autoHideDuration={2000}
+        />
       </div>
-      );
+    );
   }
-});
+}
 
-module.exports = SignIn
+export default SignIn;
