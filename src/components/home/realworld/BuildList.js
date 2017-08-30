@@ -1,76 +1,92 @@
 import React from 'react';
-import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import Snackbar from 'material-ui/Snackbar';
+import PropTypes from 'prop-types';
 
 const style = {
   margin: 12,
 };
-const BuildList = React.createClass({
+
+class BuildList extends React.Component {
+  static propTypes = {
+    actions: PropTypes.objectOf(PropTypes.any).isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+    builds: PropTypes.arrayOf(PropTypes.any).isRequired,
+  };
+  state = {
+    selectedRows: [],
+    openSnackMsg: false,
+  };
+
   componentDidMount() {
-    console.log("BuildList is mouted");
+    console.log('BuildList is mouted');
     this.props.actions.getBuildList();
-  },
-  onNew() {
-    this.props.router.push("/home/realworld/build/add");
-  },
-  onRun() {
-    let selectedRows = this.state.selectedRows
+  }
+
+  onNew = () => {
+    this.props.history.push('/home/realworld/build/add');
+  };
+
+  onRun = () => {
+    const selectedRows = this.state.selectedRows;
     if (!selectedRows || !selectedRows.length) {
       this.setState({
-        openSnackMsg: true
-      })
-      return
+        openSnackMsg: true,
+      });
+      return;
     }
-    let build = this.props.builds[selectedRows[0]];
+    const build = this.props.builds[selectedRows[0]];
     this.props.actions.openBuildPage(build);
-    this.props.router.push(`/home/realworld/build/${build.id}/run`);
-  },
-  onDelete() {
+    this.props.history.push(`/home/realworld/build/${build.id}/run`);
+  };
+
+  onDelete = () => {
     if (!this.state.selectedRows || !this.state.selectedRows.length) {
       this.setState({
-        openSnackMsg: true
-      })
-      return
+        openSnackMsg: true,
+      });
     }
-  },
-  onPerformanceTest() {
-    console.time("onPerformanceTest");
-    var test = [];
-    for (var i = 0; i < 1000000; i++) {
-      test.push(i);
-      window["badcode" + i] = 1;
-    }
-    console.timeEnd("onPerformanceTest");
-  },
-  getInitialState() {
-    return {
-      selectedRows: [],
-      openSnackMsg: false
-    };
-  },
+  };
 
-  onRowSelection(rows) {
+  onPerformanceTest = () => {
+    console.time('onPerformanceTest');
+    const test = [];
+    for (let i = 0; i < 1000000; i += 1) {
+      test.push(i);
+      window[`badcode${i}`] = 1;
+    }
+    console.timeEnd('onPerformanceTest');
+  };
+
+  onRowSelection = rows => {
     this.setState({
       openSnackMsg: false,
-      selectedRows: rows
+      selectedRows: rows,
     });
-  },
+  };
 
   render() {
-    let builds = this.props.builds || [];
+    const builds = this.props.builds || [];
     return (
       <div>
         <h1>Build List</h1>
         <div>
-          <RaisedButton label="New" style={ style } onClick={ this.onNew } />
-          <RaisedButton label="Run" primary={ true } style={ style } onClick={ this.onRun } />
-          <RaisedButton label="Delete" secondary={ true } style={ style } onClick={ this.onDelete } />
-          <RaisedButton label="Performance Test" style={ style } onClick={ this.onPerformanceTest } />
+          <RaisedButton label="New" style={style} onClick={this.onNew} />
+          <RaisedButton label="Run" primary style={style} onClick={this.onRun} />
+          <RaisedButton label="Delete" secondary style={style} onClick={this.onDelete} />
+          <RaisedButton label="Performance Test" style={style} onClick={this.onPerformanceTest} />
         </div>
         <Divider />
-        <Table onRowSelection={ this.onRowSelection } ref="table">
+        <Table onRowSelection={this.onRowSelection}>
           <TableHeader>
             <TableRow>
               <TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
@@ -79,48 +95,41 @@ const BuildList = React.createClass({
               <TableHeaderColumn tooltip="Last Status">Last Status</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody deselectOnClickaway={ false }>
-            { builds.map((row, index) => (
-              <TableRow key={ index } selected={ this.state.selectedRows.indexOf(index) !== -1 }>
+          <TableBody deselectOnClickaway={false}>
+            {builds.map((row, index) =>
+              (<TableRow key={row.id} selected={this.state.selectedRows.indexOf(index) !== -1}>
                 <TableRowColumn>
-                  { row.id }
+                  {row.id}
                 </TableRowColumn>
                 <TableRowColumn>
-                  { row.name }
+                  {row.name}
                 </TableRowColumn>
                 <TableRowColumn>
-                  <a href={ row.repository } target="_blank">
-                    { row.repository }
+                  <a href={row.repository} target="_blank">
+                    {row.repository}
                   </a>
                 </TableRowColumn>
                 <TableRowColumn>
-                  { row.lastBuildStatus }
+                  {row.lastBuildStatus}
                 </TableRowColumn>
-              </TableRow>
-              )) }
+              </TableRow>),
+            )}
           </TableBody>
         </Table>
         <Divider />
-        <SnackbarMessage ref="smsg" open={ this.state.openSnackMsg } />
+        <SnackbarMessage open={this.state.openSnackMsg} />
       </div>
-      );
+    );
   }
-})
+}
 
-const SnackbarMessage = React.createClass({
+const SnackbarMessage = props => {
+  return (
+    <Snackbar open={props.open} message={'Please select an employee!'} autoHideDuration={2000} />
+  );
+};
+SnackbarMessage.propTypes = {
+  open: PropTypes.bool.isRequired,
+};
 
-  getInitialState() {
-    return {
-      autoHideDuration: 2000,
-      message: 'Please select an employee!'
-    }
-  },
-
-  render() {
-    return (
-      <Snackbar open={ this.props.open } message={ this.state.message } autoHideDuration={ this.state.autoHideDuration } />
-      );
-  }
-})
-
-export default BuildList
+export default BuildList;

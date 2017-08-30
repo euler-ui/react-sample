@@ -1,29 +1,31 @@
 const portal = (router) => {
-  var users = [{
-    id: "guest",
-    userName: "guest",
-    userPassword: "guest"
-  }]
+  const users = [
+    {
+      id: 'guest',
+      userName: 'guest',
+      userPassword: 'guest',
+    },
+  ];
 
   router.route('/portal/users/login').post((req, res) => {
-    var body = req.body;
-    var userName = body.userName;
-    var pwd = body.userPassword;
-    var user = users.filter((user) => {
-      return user.userName === userName && user.userPassword === pwd
-    })[0]
-    setTimeout(function() {
+    const body = req.body;
+    const userName = body.userName;
+    const pwd = body.userPassword;
+    const user = users.filter((user) => {
+      return user.userName === userName && user.userPassword === pwd;
+    })[0];
+    setTimeout(() => {
       if (user) {
         res.json({
-          "status": "SUCCESS",
-          "userName": user.userName
+          status: 'SUCCESS',
+          userName: user.userName,
         });
       } else {
         res.json({
-          "status": "FAILURE"
+          status: 'FAILURE',
         });
       }
-    }, 3000)
+    }, 3000);
   });
-}
-module.exports = portal
+};
+module.exports = portal;

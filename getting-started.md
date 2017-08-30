@@ -22,7 +22,7 @@ $ cd FooApp
 This will install both run-time project dependencies and developer tools listed
 in [package.json](./package.json) file.
 
-#### 3. Run `npm start server`  
+#### 3. Run `npm run server`  
 Start the express mock server.
 
 #### 4. Run `npm start`
