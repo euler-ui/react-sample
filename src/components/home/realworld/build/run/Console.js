@@ -1,34 +1,38 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+
 
 class Console extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
-    console.log("Console did update", this.props.instanceId, this.props.logs.toArray());
-    if (this.props.instanceId) {
-      this.timer = setTimeout(this.props.queryBuildLogs.bind(this, this.props.instanceId), 3000);
-    }
+  static propTypes = {
+    instanceId: PropTypes.string.isRequired,
+    logs: PropTypes.arrayOf(PropTypes.any).isRequired,
+    queryBuildLogs: PropTypes.func.isRequired,
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (this.props.instanceId === nextProps.instanceId && this.props.logs === nextProps.logs) {
       return false;
     }
     return true;
   }
+  componentDidUpdate() {
+    console.log('Console did update', this.props.instanceId, this.props.logs.toArray());
+    if (this.props.instanceId) {
+      this.timer = setTimeout(this.props.queryBuildLogs.bind(this, this.props.instanceId), 3000);
+    }
+  }
 
   render() {
-    var logs = this.props.logs.toArray().reverse().map((log, id) => {
+    const logs = this.props.logs.toArray().reverse().map((log) => {
       log = {
-        __html: log.replace(/\n/g, "<br>")
+        __html: log.replace(/\n/g, '<br>'),
       };
-      return (<div key={ id } dangerouslySetInnerHTML={ log }>
-              </div>)
-    })
+      return <div key={log} dangerouslySetInnerHTML={log} />;
+    });
     return (
       <div className="realworld-build-console">
         { logs }
-      </div>)
+      </div>);
   }
 }
 
-
-export default Console
+export default Console;
