@@ -1,10 +1,10 @@
 # React Sample - A starter boilerplate for React based web app project, powered by create-react-app.
 
 Besides [Create React App](https://github.com/facebookincubator/create-react-app). This sample project also uses:
-> Data Flow Management - [Redux](http://redux.js.org/);
-> Redux Ducks Pattern - [Ducks](https://github.com/erikras/ducks-modular-redux);
-> Declarative routing - [React Router](https://github.com/ReactTraining/react-router);
-> React Components that Implement Google's Material Design. - [Material UI](https://github.com/callemall/material-ui);
+> Data Flow Management - [Redux](http://redux.js.org/);  
+> Redux Ducks Pattern - [Ducks](https://github.com/erikras/ducks-modular-redux);  
+> Declarative routing - [React Router](https://github.com/ReactTraining/react-router);  
+> React Components that Implement Google's Material Design. - [Material UI](https://github.com/callemall/material-ui);  
 > Mock Server based on Express - [Mock Server](https://shinxi.github.io/react/#/6/1);  
 
 ## Overview
