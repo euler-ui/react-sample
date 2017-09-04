@@ -1,55 +1,60 @@
-# React Boilerplate - A starter boilerplate for React based web app project, powered by Material UI.
+# React Sample - A starter boilerplate for React based web app project, powered by create-react-app.
 
-
-JavaScript library boilerplate, a web project template using:  
-> JavaScript Library - [React](https://facebook.github.io/react/);   
-> Application Architecture - [Redux](http://redux.js.org/);  
-> Declarative routing for React - [React Router](https://github.com/ReactTraining/react-router);  
-> React Components that Implement Google's Material Design.  - [Material UI](https://github.com/callemall/material-ui);  
+Besides [Create React App](https://github.com/facebookincubator/create-react-app). This sample project also uses:
+> Data Flow Management - [Redux](http://redux.js.org/);
+> Redux Ducks Pattern - [Ducks](https://github.com/erikras/ducks-modular-redux);
+> Declarative routing - [React Router](https://github.com/ReactTraining/react-router);
+> React Components that Implement Google's Material Design. - [Material UI](https://github.com/callemall/material-ui);
 > Mock Server based on Express - [Mock Server](https://shinxi.github.io/react/#/6/1);  
-> Future ECMASCript Standards - [ES6+](http://babeljs.io/docs/learn-es2015/);  
-> Javascript Compiler - [Babel](http://babeljs.io/);  
-> Module Bundler - [webpack](http://webpack.github.io/docs/tutorials/getting-started/);  
 
-### Features
+## Overview
 
-### Getting Started
+* [Getting Started](#getting-started)
+* [Technology stack](#technology-stack)
+* [Separation of front-end and back-end](#separation-of-front-end-and-back-end)
+* [Code Standard](#code-standard)
 
-  * Follow the [getting started guide](./getting-started.md) to download and run the project
+## Getting Started
 
-### Build & Deploy
-  * Follow [Build Doc](./build.md) to build and deploy your project.
+* Quick start
 
-### Directory Layout
+See [How to run react-sample at local](./docs/how_to_run.md) for more detail.
 
+* IDE Guidance for increasing development experience
+
+See [How to setup JavaScript Development Environment - VS Code](./docs/how_to_setup_ide.md) for more detail.
+
+* Project folder introduction
+
+```bash
+react-sample/
+├── .editorconfig         - editor config file
+├── .env                  - for absolute import
+├── .eslintrc.js          - eslint settings
+├── package.json          - npm 3rd-lib configuration
+├── README.md
+├── node_modules          - npm 3rd libraries
+├── public                - assets that won't be processed by webpack
+│   └── oauth_callback    - oauth callback
+│   └── index.html
+│   └── favicon.ico
+├── server                - mock server
+└── src                   - source codes
+    └── index.css            - entry file css
+    └── index.js             - entry file
+    └── redux/               - redux by ducks pattern
+    └── components/          - Dumb components
+    └── containers/          - Smart components that connected to redux
 ```
-.
-├── /build/                     # The folder for compiled output
-├── /node_modules/              # 3rd-party libraries and utilities
-├── /src/                       # The source code of the application
-│   ├── /actions/               # Action creators that allow to trigger a dispatch to stores
-│   ├── /components/            # React components
-│   ├── /containers/            # React containers
-│   ├── /constants/             # Constants (action types etc.)
-│   ├── /core/                  # Core framework and utility functions
-│   ├── /public/                # Static files which are copied into the /build/public folder
-│   ├── /reducers/              # Redux reducers
-│   ├── /index.js               # Client-side startup script
-│   └── /server.js              # Server-side startup script
-├── /test/                      # test codes
-└── /karma.conf.js              # Karma test runner configuration
-└── /webpack.config.js          # configurations for client-side and server-side bundles
-└── package.json                # The list of 3rd party libraries and utilities
-```
 
-### Learn More
+## Technology stack
 
-  * [Getting Started with React.js](http://facebook.github.io/react/)
-  * [Redux Intro](http://redux.js.org/)
-  * [Getting Started with Webpack](https://webpack.github.io/docs/tutorials/getting-started/)
-  * [Learn ES6](https://babeljs.io/docs/learn-es6/)
-  * [ES6 Features](https://github.com/lukehoban/es6features#readme)
-  * [React How to by Peter Hunt](https://github.com/petehunt/react-howto)
-  * [Webpack How to by Peter Hunt](https://github.com/petehunt/webpack-howto)
-  * [React.js Questions on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
-  * [The Future of React](https://github.com/reactjs/react-future)
+![High Level Diagram](./docs/images/high_level_diagram.png)
+
+## Separation of front-end and back-end
+
+See why and how at [Separation of front-end and back-end](./docs/separation_of_fe_be.md).
+
+## Code Standard
+
+Follow [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).

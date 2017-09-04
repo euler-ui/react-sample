@@ -1,0 +1,22 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    // Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
+    "editor.formatOnSave": true,
+    "stylelint.enable": true,
+    "css.validate": false,
+    "scss.validate": false,
+    // Enable/disable default JavaScript formatter (For Prettier)
+    "javascript.format.enable": false,
+    // Use 'prettier-eslint' instead of 'prettier'. Other settings will only be fallbacks in case they could not be inferred from eslint rules.
+    "prettier.eslintIntegration": true,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.printWidth": 100,
+    "search.exclude": {
+      "**/node_modules": true,
+      "src/routes":true,
+      "*config.js":true,
+      ".eslintrc.js":true,
+      "*config.prod.js":true
+    }
+}
