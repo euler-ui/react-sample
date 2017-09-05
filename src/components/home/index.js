@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import RealWorldContainer from 'containers/RealWorldContainer';
 import PropTypes from 'prop-types';
-import TopBar from './Topbar';
+import TopBar from './TopBar';
 import './home.css';
 import Welcome from './Welcome';
 import Components from './components';
