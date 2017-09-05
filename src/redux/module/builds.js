@@ -8,7 +8,7 @@ export const getBuildList = () => {
       .then((json) => {
         dispatch({
           type: GET_BUILD_LIST,
-          builds: json,
+          payload: json,
         });
       });
   };
@@ -16,7 +16,7 @@ export const getBuildList = () => {
 const builds = (state = [], action) => {
   switch (action.type) {
     case GET_BUILD_LIST:
-      return action.builds;
+      return action.payload;
     default:
       return state;
   }
